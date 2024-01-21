@@ -3,25 +3,29 @@
 // Başlangıç Challenge'ı
 
 /**Örnek Görev: İlkini Dön
- * 
+ *
  * Bu örnek sonradan gelecek olan görevleri nasıl çözeceğinizi size gösterecek.
- * 
+ *
  * Aşağdıaki Yüksek dereceden fonskiyonu(higher-order function) kullanarak aşağıdakileri yapınız
  *  1. Stringlerden oluşan bir array'i parametre olarak alın
- *  2. Bir string'i değişken olarak alan bir callback fonksiyonunu parametre olarak alın 
+ *  2. Bir string'i değişken olarak alan bir callback fonksiyonunu parametre olarak alın
  *  3. Array'in İLK elemanını değişken olarak alarak çalışacak olan callback fonksiyonunun sonucunu dönün
- * 
+ *
  * Aşağıdaki kodlar bu görevin nasıl yapılacağına örnek olacaktır
  * Bu fonskiyon 'asas' dönmeli(return)
-*/
+ */
 
 function ilkiniDon(stringArray, callback) {
-  return callback(stringArray[0])
+  return callback(stringArray[0]);
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+console.log(
+  "örnek görev:",
+  ilkiniDon(["as", "sa"], function (metin) {
+    return metin + metin;
+  })
+);
 
 // Başlangıç Challenge'ı Sonu
-
 
 ///// M V P ///////
 
@@ -30,18 +34,23 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   Aşağıdaki skor1 ve skor2 kodlarını inceleyiniz ve aşağıdaki soruları altına not alarak cevaplayın
   
   1. skor1 ve skor2 arasındaki fark nedir?
-  
+        skor1 fonksiyonun içinde bir değişken tanımlamış ve o değişkeni sıfıra eşitlemiş. Bu durumda 
+        skor1 her çağırıldığında skor 0 a eşitlenecektir.
+        skor2 fonksiyonu için ise skor değişkeni fonksiyonun dışında tanımlanmış ve sıfıra eşitlenmiştir.
+        Bu durumda skor2 fonksiyonu her çağırıldığında skor değişkeni bir artacaktır.
+
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
-  
+        skor1 de closure vardır. 
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
+        Eğer değişkene dışarıdan erişmek durumunda isek skor2 değilsek skor1 daha mantıklıdır. 
 */
 
 // skor1 kodları
 function skorArtirici() {
   let skor = 0;
   return function skorGuncelle() {
-   return skor++;
-  }
+    return skor++;
+  };
 }
 
 const skor1 = skorArtirici();
@@ -53,7 +62,6 @@ function skor2() {
   return skor++;
 }
 
-
 /* Görev 2: takimSkoru() 
 Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
   1. Bir çeyrekte bir takımın ürettiği skoru rastgele(random) elde eden bir sonuc dönünüz(return)
@@ -64,12 +72,13 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru() {
+  
+  const scor =  Math.floor(Math.random() * 15 +1);
+  return scor;
 }
 
-
-
+console.log("team score: " + takimSkoru());
 
 /* Görev 3: macSonucu() 
 Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
@@ -84,16 +93,20 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
   "EvSahibi": 92,
   "KonukTakim": 80
 }
-*/ 
+*/
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(callbackFnc, quarter) {
+  let result = {
+    EvSahibi: 0,
+    KonukTakim:0,
+  };
+  for(let i= 0 ; i<=quarter ; i++){
+    result.EvSahibi+=callbackFnc()
+    result.KonukTakim+=callbackFnc()
+  }
+  return result;
+
 }
-
-
-
-
-
 
 /* Zorlayıcı Görev 4: periyotSkoru()
 Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
@@ -101,6 +114,7 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   2. takimSkoru callback fonksiyonunu kullanarak, EvSahibi ve KonukTakim için bir skor üretin
   3. Bir object olarak EvSahibi ve KonukTakim skorunu dönün
   
+
 Örneğin: periyotSkoru(takimSkoru) çalıştırınca aşağıdaki object'i dönmeli
 {
   "EvSahibi": 18,
@@ -108,12 +122,13 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
 }
   */
 
-
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-
+function periyotSkoru(callbackFnc) {
+  let result = {
+    EvSahibi: callbackFnc(),
+    KonukTakim:callbackFnc() ,
+  };
+  return result
 }
-
 
 /* Zorlayıcı Görev 5: skorTabelasi() 
 Aşağıdaki skorTabelasi() fonksiyonunu kullanarak aşağıdakileri yapınız:
@@ -150,13 +165,10 @@ function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
   /*Kodunuzu buraya yazınız*/
 }
 
-
-
-
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
-function sa(){
-  console.log('Kodlar çalışıyor');
-  return 'as';
+function sa() {
+  console.log("Kodlar çalışıyor");
+  return "as";
 }
 sa();
 module.exports = {
@@ -168,4 +180,4 @@ module.exports = {
   macSonucu,
   periyotSkoru,
   skorTabelasi,
-}
+};
